@@ -1,0 +1,43 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Event{% endblock %}
+
+
+{% block body %}
+{% include 'navbar.html.twig' %}
+<a href="{{ path('app_event_new') }}" class=" m-3 btn btn-light mt-3">Create New Event</a>
+<div class="container">
+    <div class="row justify-content-center">
+        <div class="card mt-5 p-3 border border-3 border-warning rounded-4 border-opacity-25 text-light" style="width: 18rem;">
+            <img src="{{ eventItem.getImageLink }}" alt="{{ eventItem.getName }}">
+            <div class="card-body">
+              <h5 class="card-title text-light">{{ eventItem.getName }}</h5>
+              <p class="card-text text-light">Date: {{ eventItem.getDate.format('d-m-Y') }} {{ eventItem.getStartTime ? eventItem.getStartTime.format('H:i') : '' }}</p>
+            </div>
+            <ul class="list-group list-group-flush">
+              <li class="list-group-item text-light">Description: {{ eventItem.getDescription }}</li>
+              <li class="list-group-item text-light">Capacity: {{ eventItem.getCapacity }}</li>
+              <li class="list-group-item text-light">Email: {{ eventItem.getContactEmail }}</li>
+              <li class="list-group-item text-light">Phone: {{ eventItem.getContactPhone }}</li>
+              <li class="list-group-item text-light">Address: {{ eventItem.getAddress }}, {{ eventItem.getCityName }}, {{ eventItem.getZipCode }}</li>
+              <li class="list-group-item text-light">Event URL: <a class="text-light" href="{{ eventItem.getEventUrl }}">{{ eventItem.getEventUrl }}</a></li>
+              <li class="list-group-item text-light">Type: {{ eventItem.getEventType }}</li>
+              
+            </ul>
+            <div class="card-body  rounded-bottom-4 d-flex justify-content-center align-items-center ">
+              <div>
+              <a href="{{ path('app_event_edit', {'id': eventItem.id}) }}" class="btn btn-warning m-2">Edit</a>
+              </div>
+              <div>
+              <a href="{{ path('app_event_show', {'id': eventItem.id}) }}" class="btn btn-light m-2">Details</a>
+              </div>
+  
+              <div>
+              <form method="post" action="{{ path('app_event_delete', {'id': eventItem.id}) }}" onsubmit="return confirm('Are you sure you want to delete this item?');">
+                  <input type="hidden" name="_token" value="{{ csrf_token('delete' ~ eventItem.id) }}">
+                  <button class="btn btn-dark align-self-center m-2">Delete</button>
+              </form>
+              </div>
+    </div>
+</div>
+{% endblock %}

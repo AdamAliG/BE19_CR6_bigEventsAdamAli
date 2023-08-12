@@ -1,0 +1,40 @@
+
+
+<nav class="navbar navbar-expand-lg bg-body-tertiary bg-dark">
+  <div class="container-fluid ">
+    <a class="navbar-brand text-light" href="{{ path('app_event_index') }}">
+      <img src="https://www.rivieragroupon.com/img/logo01.png" alt="logo">
+    </a>
+    <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+      <span class="navbar-toggler-icon"></span>
+    </button>
+    <div class="collapse navbar-collapse" id="navbarSupportedContent">
+      <ul class="navbar-nav me-auto mb-2 mb-lg-0">
+        <li class="nav-item m-2">
+          <a class="nav-link text-light active" aria-current="page" href="{{ path('app_event_index') }}">Home</a>
+        </li>
+        <li class="nav-item m-2">
+          <a class="nav-link text-light" href="{{ path('app_event_new') }}">Create New Event</a>
+        </li>
+        <form action="{{ path('app_event_index') }}" method="get">
+          <select class="bg-dark text-light p-2 me-2 border-3 border-warning-subtle rounded-2"name="type">
+              <option value="">All Events</option>
+              <option value="music">music</option>
+              <option value="sport">sport</option>
+              <option value="movie">movie</option>
+              <option value="theater">theater</option>
+            
+          </select>
+          <input class="bg-dark text-light p-2 border-3 border-warning-subtle rounded-2 " type="submit" value="Filter">
+      </form>
+      
+      </ul>
+      <section class="search-bar">
+          <form action="{{ path('app_event_index') }}" method="get">
+              <input class="border-3 border-warning rounded-2 bg-dark text-light"type="text" name="type" placeholder="Search event type...">
+              <button class="btn btn-warning"type="submit">Search</button>
+          </form>
+      </section>
+    </div>
+  </div>
+</nav>

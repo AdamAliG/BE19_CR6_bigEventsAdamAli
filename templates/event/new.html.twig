@@ -1,0 +1,20 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}New Event{% endblock %}
+
+{% block body %}
+{% include 'navbar.html.twig' %}
+    <div class="container mt-5">
+        <h1 class="text-light">Create New Event</h1>
+
+        {{ form_start(form) }}
+        {{ form_widget(form) }}
+        <button type="submit" class="btn btn-success mt-2">Create</button>
+        {{ form_end(form) }}
+
+        <a href="{{ path('app_event_index') }}" class="btn btn-dark mt-3">Back to events list</a>
+    </div>
+
+    <a href="{{ path('app_event_new') }}" class="btn btn-primary mt-3">Create New Event</a>
+
+{% endblock %}

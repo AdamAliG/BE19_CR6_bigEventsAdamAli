@@ -1,0 +1,77 @@
+{% extends 'base.html.twig' %}
+
+
+{% block title %}Event Tracker{% endblock %}
+
+{% block body %}
+
+<header>
+    
+</header>
+
+
+{% include 'navbar.html.twig' %}
+<div id="carouselExample" class="carousel slide">
+    <div class="carousel-inner">
+      <div class="carousel-item active">
+        <img src="https://img.freepik.com/premium-vector/music-festival-poster-with-musical-instruments-opened-black-piano-design-promotion-invitation-concert-banner-classical-music-template-design-flyer-creative-style-vector-illustration_345238-589.jpg?w=2000" class="d-block w-100" alt="...">
+      </div>
+   
+      <div class="carousel-item">
+        <img src="https://www.towertheatre.org/CC%20Holiday%20magic%201280%20x%20480.jpg" class="d-block w-100" alt="...">
+      </div>
+    </div>
+    <button class="carousel-control-prev" type="button" data-bs-target="#carouselExample" data-bs-slide="prev">
+      <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+      <span class="visually-hidden">Previous</span>
+    </button>
+    <button class="carousel-control-next" type="button" data-bs-target="#carouselExample" data-bs-slide="next">
+      <span class="carousel-control-next-icon" aria-hidden="true"></span>
+      <span class="visually-hidden">Next</span>
+    </button>
+  </div>
+  <a href="{{ path('app_event_new') }}" class="btn btn-light m-3">Create New Event</a>
+<section class="event-listings">
+    <div class="container">
+        <div class="row justify-content-center">
+    {% for eventItem in events %}
+   
+    <div class="card mt-5 p-3 border border-3 border-warning rounded-4 border-opacity-25 text-light m-2" style="width: 18rem;">
+        <img class=" rounded-top-4"src="{{ eventItem.getImageLink }}" alt="{{ eventItem.getName }}">
+        <div class="card-body">
+          <h5 class="card-title text-light">{{ eventItem.getName }}</h5>
+          <p class="card-text text-light">Date: {{ eventItem.getDate.format('d-m-Y') }} {{ eventItem.getStartTime ? eventItem.getStartTime.format('H:i') : '' }}</p>
+        </div>
+        <ul class="list-group list-group-flush">
+          <li class="list-group-item text-light">Description: {{ eventItem.getDescription }}</li>
+          <li class="list-group-item text-light">Email: {{ eventItem.getContactEmail }}</li>
+          <li class="list-group-item text-light">Phone: {{ eventItem.getContactPhone }}</li>
+          <li class="list-group-item text-light">type: {{ eventItem.eventType }}</li>
+          
+        </ul>
+        <div class="card-body  rounded-bottom-4 d-flex justify-content-center align-items-center ">
+            <div>
+            <a href="{{ path('app_event_edit', {'id': eventItem.id}) }}" class="btn btn-warning m-2">Edit</a>
+            </div>
+            <div>
+            <a href="{{ path('app_event_show', {'id': eventItem.id}) }}" class="btn btn-light m-2">Details</a>
+            </div>
+
+            <div>
+            <form method="post" action="{{ path('app_event_delete', {'id': eventItem.id}) }}" onsubmit="return confirm('Are you sure you want to delete this item?');">
+                <input type="hidden" name="_token" value="{{ csrf_token('delete' ~ eventItem.id) }}">
+                <button class="btn btn-dark align-self-center m-2">Delete</button>
+            </form>
+            </div>
+        </div>
+      </div>
+{% endfor %}
+</div>
+</div>
+</section>
+
+<footer>
+    
+</footer>
+
+{% endblock %}
